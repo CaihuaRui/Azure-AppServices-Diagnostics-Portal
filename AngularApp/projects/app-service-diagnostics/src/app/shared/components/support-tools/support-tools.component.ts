@@ -32,7 +32,7 @@ export class SupportToolsComponent {
 
         this._authService.getStartupInfo()
             .subscribe((startUpInfo: StartupInfo) => {
-                if (startUpInfo.resourceType === ResourceType.Site && startUpInfo.resourceId.toLowerCase().includes("/providers/microsoft.web/")) {
+                if (startUpInfo.resourceType === ResourceType.Site) {
                     this._armService.getResource<Site>(startUpInfo.resourceId).pipe(
                         mergeMap((site: ResponseMessageEnvelope<Site>) => {
                             this.currentSite = site.properties;

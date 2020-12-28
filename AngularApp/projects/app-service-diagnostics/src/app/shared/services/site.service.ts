@@ -27,7 +27,7 @@ export class SiteService {
         private _uriElementsService: UriElementsService, private _serverFarmService: ServerFarmDataService) {
         this._authService.getStartupInfo().subscribe((startUpInfo: StartupInfo) => {
             this._populateSiteInfo(startUpInfo.resourceId);
-            if (startUpInfo.resourceType === ResourceType.Site && startUpInfo.resourceId.toLowerCase().includes("/providers/microsoft.web/")) {
+            if (startUpInfo.resourceType === ResourceType.Site) {
                 this._armClient.getResource<Site>(startUpInfo.resourceId).subscribe((site: ResponseMessageEnvelope<Site>) => {
 
                     this.currentSiteStatic = site.properties;
@@ -237,7 +237,7 @@ export class SiteService {
                             }
                         }
                     } else {
-                        
+
                         //
                         // Temporary fix till ANT 92 to handle crashes due to exit Code 0x800703e9
                         // as that translates internally to Win32 exception code E053534F
